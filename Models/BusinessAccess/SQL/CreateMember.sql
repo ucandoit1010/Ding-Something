@@ -1,0 +1,1 @@
+INSERT INTO [dbo].[Users] ([Name],[Email],[Pwd]) VALUES (@Name,@Email,@Pwd);

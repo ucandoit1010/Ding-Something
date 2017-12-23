@@ -1,0 +1,37 @@
+@using System.Collections.Generic;
+@using DINGSOMETHING.Models.BusinessAccess;
+@{
+    IEnumerable<Order> data = (IEnumerable<Order>)ViewData["Order"];
+}
+
+<div id="wrapper">
+    <div class="margin-top">
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-dark btn-filter" data-filter="all" >全部</button>
+                <button type="button" class="btn btn-danger btn-filter" data-filter="1" >已結帳</button>
+                <button type="button" class="btn btn-warning btn-filter" data-filter="0" >待結</button>
+            </div>
+            </div>
+        </div>
+        <hr/>
+        <div id="product-list" class="row">
+        @foreach(var item in data){
+            <div data-category="@(item.IsClose == true ? 1 : 0)" class="col-lg-4 col-sm-6 portfolio-item">
+            <div class="card h-100">
+                <div class="card-body">
+                <h4 class="card-title text-center">
+                    @item.OrderMemo
+                </h4>
+                <small class="@item.CreateDate">@item.PName</small>
+                <hr/>
+                <a class = "btn btn-info btn-block" asp-controller="Product" asp-action="GetFile" asp-route-id="@item.PId" >菜單</a>
+                <a class = "btn btn-danger btn-block" asp-controller="Order" asp-action="Checkout" asp-route-id="@item.Id" >結帳</a>
+                </div>
+            </div>
+            </div>
+        }
+        </div>
+    </div>
+</div>

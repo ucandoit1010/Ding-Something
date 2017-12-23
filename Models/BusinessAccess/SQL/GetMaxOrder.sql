@@ -1,0 +1,1 @@
+SELECT MAX(OrderNo) AS OrderNo  FROM Orders;

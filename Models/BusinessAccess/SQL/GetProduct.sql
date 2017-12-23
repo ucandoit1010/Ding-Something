@@ -1,0 +1,1 @@
+SELECT [Id] ,[Name] , CatalogId ,[CatalogName] ,[Img] ,[CreateDate] ,[IsEnable] from [Products] WHERE IsEnable = 1 ORDER BY [CreateDate] DESC ;

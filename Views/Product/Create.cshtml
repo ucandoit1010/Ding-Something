@@ -1,0 +1,41 @@
+
+<form class="margin-top" method="Post" asp-controller="Product" asp-action="Save" enctype="multipart/form-data" >
+  <div class="form-group row">
+    <label for="Name" class="col-sm-2 col-form-label text-right">商品名稱</label>
+    <div class="col-sm-10">
+      <input class="form-control" name="Name" type="text" placeholder="" required />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Name" class="col-sm-2 col-form-label text-right">分類</label>
+    <div class="col-sm-10">
+        <select class="form-control"  name="CatalogId" id="selCatalog" >
+        </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="imgFile" class="col-sm-2 col-form-label text-right">商品圖片</label>
+    <div class="col-sm-10">
+        <input type="file" name="imgFile" class="form-control-file" id="imgFile">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label text-right">建立日期</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="@DateTime.Now.ToShortDateString()">
+    </div>
+  </div>
+  <hr/>
+    <div class="form-group row text-center">
+        <div class="col-sm-12">
+            <input class="btn btn-success btn-lg" type="submit" value="儲  存" />
+        </div>
+    </div>
+</form>
+<div class="text-center">
+    <img src="https://placeimg.com/700/100/arch/sepia" />
+</div>
+
+<script type="text/javascript">
+  setTimeout(function(){ loadSelectAjax('/Product/GetCatalog',$('select#selCatalog')); }, 1000);
+</script>

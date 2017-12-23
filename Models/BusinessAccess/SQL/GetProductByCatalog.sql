@@ -1,0 +1,1 @@
+SELECT Id , [Name] , [CatalogId] , [CatalogName] , Img from [Products] WHERE IsEnable = 1 AND CatalogId = @CatalogId ;

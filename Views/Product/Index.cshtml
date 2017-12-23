@@ -1,0 +1,73 @@
+@using System.Collections.Generic;
+@using DINGSOMETHING.Models.BusinessAccess;
+@{
+    IEnumerable<Product> data = (IEnumerable<Product>)ViewData["List"];
+}
+
+<div id="wrapper">
+    
+    <div class="margin-top">
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-dark btn-filter" data-filter="all" >全部</button>
+                <button type="button" class="btn btn-info btn-filter" data-filter="1" >吃飯</button>
+                <button type="button" class="btn btn-primary btn-filter" data-filter="2" >喝飲料</button>
+                <button type="button" class="btn btn-success btn-filter" data-filter="3" >點心</button>
+            </div>
+            </div>
+        </div>
+        <hr/>
+        <div id="product-list" class="row">
+        @foreach(var item in data){
+            if(item.CatalogName == "吃飯"){
+                <div data-category="1" class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <div class="card-body">
+                    <h4 class="card-title text-center">
+                        @item.Name
+                    </h4>
+                    <small class="@item.CatalogName">@item.CatalogName</small>
+                    <hr/>
+                    <a class = "btn btn-info btn-block" asp-controller="Product" asp-action="GetFile" asp-route-id="@item.Id" >菜單</a>
+                    <a class = "btn btn-warning btn-block" asp-controller="Order" asp-action="Create" asp-route-id="@item.Id" >合購</a>
+                    </div>
+                </div>
+                </div>
+            }else if(item.CatalogName == "喝飲料"){
+
+                <div data-category="2" class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <div class="card-body">
+                    <h4 class="card-title text-center">
+                        @item.Name
+                    </h4>
+                    <small class="@item.CatalogName">@item.CatalogName</small>
+                    <hr/>
+                    <a class = "btn btn-info btn-block" asp-controller="Product" asp-action="GetFile" asp-route-id="@item.Id" >菜單</a>
+                    <a class = "btn btn-warning btn-block" asp-controller="Order" asp-action="Create" asp-route-id="@item.Id" >合購</a>
+                    </div>
+                </div>
+                </div>
+
+            }else if(item.CatalogName == "點心"){
+
+                <div data-category="3" class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <div class="card-body">
+                    <h4 class="card-title text-center">
+                        @item.Name
+                    </h4>
+                    <small class="@item.CatalogName">@item.CatalogName</small>
+                    <hr/>
+                    <a class = "btn btn-info btn-block" asp-controller="Product" asp-action="GetFile" asp-route-id="@item.Id" >菜單</a>
+                    <a class = "btn btn-warning btn-block" asp-controller="Order" asp-action="Create" asp-route-id="@item.Id" >合購</a>
+                    </div>
+                </div>
+                </div>
+            }
+
+        }
+        </div>
+    </div>
+</div>

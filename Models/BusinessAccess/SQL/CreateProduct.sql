@@ -1,0 +1,1 @@
+INSERT INTO [dbo].[Products] ([Name],[CatalogId],[CatalogName],[Img]) VALUES (@Name ,@CatalogId , @CatalogName ,@Img);

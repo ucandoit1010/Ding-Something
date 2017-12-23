@@ -1,0 +1,21 @@
+@using Microsoft.AspNetCore.Session;
+
+<div class="wrapper">
+    <form method="post" asp-action="Validate" asp-controller="User" name="Login_Form" class="form-signin">       
+        <h3 class="form-signin-heading">登入 Ding Something</h3>
+            <hr class="colorgraph">
+            <input type="text" class="form-control" name="Account" value="test" placeholder="" required="" autofocus="" />
+            <input type="password" class="form-control" name="Password" value="test" placeholder="" required=""/>     		  
+            <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">登入</button>
+            <div class="error">
+                @if(TempData["Error"] != null){
+                    <span>TempData["Error"]</span>
+
+                }
+            </div>
+            <div>
+                jerry / jerry<br/>
+                test /test
+            </div>
+    </form>			
+</div>

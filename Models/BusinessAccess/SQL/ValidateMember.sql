@@ -1,0 +1,1 @@
+SELECT Id,[Name] , Account , Pwd from Users WHERE IsEnable = 1 AND Account = @Account AND Pwd = @Pwd;

@@ -1,0 +1,111 @@
+@using System.Linq;
+@using DINGSOMETHING.Models.BusinessAccess;
+@using DINGSOMETHING.Models.Helper;
+@{
+    var item = (Order)ViewData["Order"];
+    var detail = (IEnumerable<OrderDetail>)ViewData["Detail"];
+    var user = (string)ViewData["User"];
+}
+<input type="hidden" id = "val" value="@EncryptHelper.EncryptString(item.Id.ToString())" />
+<input type="hidden" value="@user" id="user" />
+<div class="row margin-top fixed-height">
+    <div data-category="2" class="offset-lg-2 col-lg-8 col-sm-12 portfolio-item">
+        <div class="card h-100">
+            <div class="card-header card-title text-center">
+                @item.PName
+            </div>
+            <div class="card-body text-center">
+                @item.OrderMemo   
+            </div>
+            <div class="text-center">
+                @string.Format("合計：{0}",detail.Sum(p => p.Price))
+            </div>
+            <center><a type="button" asp-controller="Product" asp-action="GetFile" asp-route-id="@item.PId" class="btn btn-info btn-lg">菜單</a></center>
+            <hr/>
+            <table id="tblDetail" class="table table-striped table-light">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>名稱</th>
+                        <th>小計</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr>
+                        <td>
+                            <div class="col-md-8">
+                                <input type="text" id="name" class="form-control" placeholder="輸入品名" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-6">
+                                <input type="text" id="price" class="form-control" placeholder="限數字" />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="btnAddItem" >加入</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                    @foreach(var data in detail){
+                        <tr>
+                            <td>@data.Item</td>
+                            <td>@data.Price</td>
+                            <td>@user</td>
+                            <td><button class="btn btn-warning" onclick="doRemove($(this),'@EncryptHelper.EncryptString(data.Id.ToString())')" >X</button></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+function loadCheckoutButton(){
+    $('#btnAddItem').click(function() {
+        var req = ($('#name').val().length > 0 && $('#price').val().length > 0);
+        if(!req){alert('必填');return;}
+        if(!isNumber($('#price').val())){
+            alert('限數字');
+            return;
+        }
+        var value = $('#tblDetail').find('tbody').html();
+        var detail = $('#tblDetail');
+        if(value.indexOf($('#name').val()) > 0 && value.indexOf(user.value) > 0){
+            alert('已加入');
+            value = null;
+            return false;
+        }else{
+            var html = '<td>' + $('#name').val() + '</td><td>' + $('#price').val() + '</td><td>' + user.value + '</td>';
+            detail.append('<tr>' + html + '</tr>');
+            $('#name').val('');
+            $('#price').val('');
+        }
+
+    });
+    
+}
+function doRemove(obj,val) {
+    
+    if(confirm('Remove ?')){
+        ajax('/Order/Update' , { key : val } , reload(obj));
+    }
+}
+function reload(obj,response){
+    if(response.code > 0) {
+        location.reload();
+    }else{
+        alert(response.Content);
+    }
+    
+}
+function done(response){
+    if(response.Code < 1){
+        alert(response.Content);
+    }
+}
+</script>
